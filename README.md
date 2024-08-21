@@ -1,16 +1,79 @@
-# bang_demo
+# BanGDemo
 
-A new Flutter project.
+可用于 BanGDream、PJSK 等音游的上隐 app
 
-## Getting Started
+## 使用方法
 
-This project is a starting point for a Flutter application.
+### 操作
 
-A few resources to get you started if this is your first Flutter project:
+#### 主界面
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 点击右上角加号进入编辑页面，新增上隐方案
+- 点击已有方案显示上隐，再次点击停用
+- 长按已有方案选择编辑或删除上隐方案
+- 点击左上角打开侧边栏
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### 编辑页面
+
+- 点击右上角保存按钮保存上隐方案
+- 点击右下角悬浮按钮，使用当前编辑的配置显示上隐
+- 点击`基础信息`，`文本`，`图片`展开或收起对应的配置项（`文本`和`图片`未启用时无法编辑）
+- 点击配置项中的`i`图标，查看对应配置项的帮助信息
+
+#### 侧边栏
+
+- 点击`设置`进入设置页面
+- 左下角显示当前版本号
+
+#### 设置页面
+
+- 点击右上角保存按钮保存设置
+
+### 配置
+
+#### 基础信息
+
+- 名称：上隐方案的名称，在主界面显示
+- 描述：上隐方案的描述，在主界面显示
+- 矩形圆角：窗口的圆角半径，最大为上隐窗口窄边的一半，0 为直角
+- 背景颜色：窗口本身的背景颜色，支持透明度
+- 宽度
+- 高度
+- x坐标偏移：在原位置的基础上，向右偏移的像素数，可为负数，即向左偏移
+- y坐标偏移：在原位置的基础上，向下偏移的像素数，可为负数，即向上偏移
+- 水平方向：窗口相对于屏幕
+- 垂直方向：窗口相对于屏幕
+
+#### 文本
+
+- 是否启用：是否显示文本
+- 文本：显示的文本内容
+- 字体大小
+- 字体颜色：支持透明度
+- 字体粗细
+- 文本对齐：文本自身的水平对齐方式
+- x坐标偏移
+- y坐标偏移
+- 水平方向：文本相对于窗口
+- 垂直方向：文本相对于窗口
+
+#### 图片
+
+- 是否启用：是否显示图片
+- 宽度：图片的宽度，最大为窗口宽度
+- 高度：图片的高度，最大为窗口高度
+- x坐标偏移
+- y坐标偏移
+- 水平方向：图片相对于窗口
+- 垂直方向：图片相对于窗口
+- 透明度：0 完全透明，1 完全不透明
+- 填充方式：原始图片在规定宽高内的填充方式
+- 选择图片按钮：点击选择图片，在下方显示选择的图片（支持 gif 图）
+
+#### 设置
+
+- 悬浮窗自启：在启动时自动显示上一次选择的上隐方案
+- 手势事件：对悬浮窗口进行单击、双击或三击等手势动作时执行的的响应事件
+  - 无动作
+  - 重置位置：将窗口移动到初始位置
+  - 关闭悬浮窗
