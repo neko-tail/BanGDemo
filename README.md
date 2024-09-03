@@ -1,6 +1,6 @@
 # BanGDemo
 
-可用于 BanGDream、PJSK 等音游的上隐 app
+可用于 BanGDream、~~PJSK~~（PJSK 日服有上隐功能了，而且更好用一些） 等音游的上隐 app
 
 ## 使用方法
 
