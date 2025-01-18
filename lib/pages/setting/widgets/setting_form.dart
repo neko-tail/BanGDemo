@@ -2,6 +2,7 @@ import 'package:bang_demo/data/models/setting.dart';
 import 'package:bang_demo/data/viewmodels/setting_form_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_settings/quick_settings.dart';
 
 class SettingForm extends StatefulWidget {
   const SettingForm({
@@ -73,6 +74,22 @@ class _SettingFormState extends State<SettingForm> {
               //     });
               //   },
               // ),
+              const Divider(),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      QuickSettings.addTileToQuickSettings(
+                          label: "悬浮窗",
+                          drawableName: "quick_settings_base_icon");
+                    },
+                    child: Text(
+                      "添加悬浮窗开关",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         );

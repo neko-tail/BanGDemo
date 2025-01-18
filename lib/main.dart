@@ -1,12 +1,77 @@
+import 'dart:developer';
+import 'dart:isolate';
+import 'dart:ui';
+
 import 'package:bang_demo/data/providers/setting_provider.dart';
 import 'package:bang_demo/pages/home/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_settings/quick_settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/constants/msg_constant.dart';
+import 'core/utils/cover_window.dart';
+import 'data/models/overlay_msg.dart';
 import 'data/providers/cover_provider.dart';
+import 'data/repositories/cover_repository.dart';
 import 'overlays/cover_overlay.dart';
 
+@pragma("vm:entry-point")
+Tile onTileClicked(Tile tile) {
+  MsgType status = MsgType.close;
+
+  final oldStatus = tile.tileStatus;
+  if (oldStatus == TileStatus.active) {
+    tile.tileStatus = TileStatus.inactive;
+
+    status = MsgType.close;
+  } else {
+    tile.tileStatus = TileStatus.active;
+
+    status = MsgType.show;
+  }
+
+  Future(() async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    final id = prefs.getInt('selected');
+    log("init cover provider, selected id: $id");
+    if (id != null) {
+      final cover = await CoverRepository().getCover(id);
+      SendPort? overlayPort =
+          IsolateNameServer.lookupPortByName(portNameOverlay);
+
+      if (overlayPort != null && cover != null) {
+        await showOverlay(cover);
+        overlayPort.send(OverlayMsg(status, data: cover.toJson()).toJson());
+      }
+    }
+  });
+
+  // Return the updated tile, or null if you don't want to update the tile
+  return tile;
+}
+
+@pragma("vm:entry-point")
+Tile onTileAdded(Tile tile) {
+  log("Tile added");
+  tile.tileStatus = TileStatus.inactive;
+
+  return tile;
+}
+
+@pragma("vm:entry-point")
+void onTileRemoved() {
+  log("Tile removed");
+}
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  QuickSettings.setup(
+    onTileClicked: onTileClicked,
+    onTileAdded: onTileAdded,
+    onTileRemoved: onTileRemoved,
+  );
+
   runApp(const MyApp());
 }
 
