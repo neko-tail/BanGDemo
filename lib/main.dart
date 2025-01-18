@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:isolate';
 import 'dart:ui';
 
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus/flag.dart';
 import 'package:bang_demo/data/providers/setting_provider.dart';
 import 'package:bang_demo/pages/home/main_page.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,21 @@ Tile onTileClicked(Tile tile) {
 
   Future(() async {
     SharedPreferences? prefs = await SharedPreferences.getInstance();
+
+    final isRunning = prefs.getBool('isAppRunning');
+    log("get isAppRunning: $isRunning");
+    if (isRunning == null || !isRunning) {
+      // 唤起程序
+      log("唤起程序");
+      final intent = AndroidIntent(
+        action: 'action_view',
+        package: 'net.thmaster.bang_demo',
+        componentName: 'net.thmaster.bang_demo.MainActivity',
+        flags: <int>[Flag.FLAG_ACTIVITY_NEW_TASK],
+      );
+      intent.launch();
+    }
+
     final id = prefs.getInt('selected');
     log("init cover provider, selected id: $id");
     if (id != null) {
@@ -130,6 +147,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _setAppRunningStatus(true);
     _initProvider();
     themeMode = ThemeMode.system;
   }
@@ -137,6 +155,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _setAppRunningStatus(false);
     super.dispose();
   }
 
@@ -146,6 +165,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       // 模拟器中，程序退出后悬浮窗不会自动关闭，但在真机上会，先注释掉
       // _coverProvider.closeCover();
     }
+  }
+
+  Future<void> _setAppRunningStatus(bool isRunning) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    log("set isAppRunning : $isRunning");
+    await prefs.setBool('isAppRunning', isRunning);
   }
 
   // This widget is the root of your application.
