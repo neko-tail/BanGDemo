@@ -435,10 +435,11 @@ packages:
   quick_settings:
     dependency: "direct main"
     description:
-      name: quick_settings
-      sha256: "957c8b6ab57b1113aafcf7d85095e01c02e5f5f2437ac275ae430babcd4b49d8"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: b43692ec73ae9c96f2f701325b0f5f886623b6b6
+      url: "https://github.com/neko-tail/quick_settings.git"
+    source: git
     version: "1.0.1"
   shared_preferences:
     dependency: "direct main"
