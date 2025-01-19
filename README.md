@@ -77,3 +77,7 @@
   - 无动作
   - 重置位置：将窗口移动到初始位置
   - 关闭悬浮窗
+- 添加悬浮窗开关：在“快捷设置”（通知栏下拉）中添加一个控制悬浮窗的开关
+  ![quick_setting_1.jpg](img%2Fquick_setting_1.jpg)
+  ![quick_setting_2.jpg](img%2Fquick_setting_2.jpg)
+  ![quick_setting_3.jpg](img%2Fquick_setting_3.jpg)
